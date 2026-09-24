@@ -1,0 +1,12 @@
+{
+  "name": "holiday-fresh-supply",
+  "version": "0.1.0",
+  "private": true,
+  "description": "双节生鲜承诺清算领域契约",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "build": "node --check src/contracts.js && node --check src/cli.js",
+    "check:sample": "node src/cli.js contracts/domain.schema.json data/sample.json"
+  }
+}

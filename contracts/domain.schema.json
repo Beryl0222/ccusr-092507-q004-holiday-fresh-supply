@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "双节生鲜承诺清算领域事件",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "aggregate_type",
+    "aggregate_id",
+    "occurred_at",
+    "version",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "LOT_DECLARED",
+        "LOT_INSPECTED",
+        "CAPACITY_RESERVED",
+        "DELIVERY_ACCEPTED",
+        "SETTLEMENT_POSTED"
+      ]
+    },
+    "aggregate_type": {
+      "type": "string",
+      "enum": [
+        "supply_lot",
+        "purchase_demand",
+        "allocation_commitment",
+        "settlement_entry"
+      ]
+    },
+    "aggregate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "payload_required_by_event": {
+    "LOT_DECLARED": [
+      "quantity",
+      "arrival_window"
+    ],
+    "CAPACITY_RESERVED": [
+      "demand_id",
+      "quantity"
+    ],
+    "SETTLEMENT_POSTED": [
+      "period_id",
+      "amount"
+    ]
+  },
+  "additionalProperties": false
+}

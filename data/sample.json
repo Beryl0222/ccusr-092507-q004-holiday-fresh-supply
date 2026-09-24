@@ -1,0 +1,12 @@
+{
+  "event_id": "092507-004-sample-001",
+  "event_type": "LOT_DECLARED",
+  "aggregate_type": "supply_lot",
+  "aggregate_id": "holiday_fresh_supply-001",
+  "occurred_at": "2026-09-24T12:00:00+08:00",
+  "version": 1,
+  "payload": {
+    "quantity": 100,
+    "arrival_window": "sample-arrival_window"
+  }
+}
