@@ -20,10 +20,25 @@
       "type": "string",
       "enum": [
         "LOT_DECLARED",
+        "LOT_ARRIVED",
         "LOT_INSPECTED",
+        "LOT_QUARANTINED",
+        "LOT_LOSS_RECORDED",
+        "LOT_RESCHEDULED",
+        "LOT_SHORTAGE_RECORDED",
+        "CAPACITY_DECLARED",
         "CAPACITY_RESERVED",
+        "DEMAND_SUBMITTED",
+        "COMMITMENT_OFFERED",
+        "COMMITMENT_CONFIRMED",
+        "COMMITMENT_REPLANNED",
+        "COMMITMENT_REASSIGNED",
         "DELIVERY_ACCEPTED",
-        "SETTLEMENT_POSTED"
+        "RECEIPT_ACCEPTED",
+        "DISPUTE_RAISED",
+        "PRIORITY_RULES_FROZEN",
+        "SETTLEMENT_POSTED",
+        "SETTLEMENT_REVERSED"
       ]
     },
     "aggregate_type": {
@@ -32,7 +47,10 @@
         "supply_lot",
         "purchase_demand",
         "allocation_commitment",
-        "settlement_entry"
+        "settlement_entry",
+        "handling_capacity",
+        "priority_rules",
+        "dispute"
       ]
     },
     "aggregate_id": {
@@ -53,16 +71,96 @@
   },
   "payload_required_by_event": {
     "LOT_DECLARED": [
+      "supplier_id",
+      "category",
+      "grade",
       "quantity",
       "arrival_window"
+    ],
+    "LOT_ARRIVED": [
+      "arrived_quantity"
+    ],
+    "LOT_INSPECTED": [
+      "passed_quantity",
+      "quarantined_quantity"
+    ],
+    "LOT_QUARANTINED": [
+      "quantity",
+      "reason"
+    ],
+    "LOT_LOSS_RECORDED": [
+      "bucket",
+      "quantity",
+      "reason"
+    ],
+    "LOT_RESCHEDULED": [
+      "arrival_window",
+      "reason"
+    ],
+    "LOT_SHORTAGE_RECORDED": [
+      "quantity"
+    ],
+    "CAPACITY_DECLARED": [
+      "window_id",
+      "capacity"
     ],
     "CAPACITY_RESERVED": [
       "demand_id",
       "quantity"
     ],
+    "DEMAND_SUBMITTED": [
+      "business_key",
+      "buyer_id",
+      "category",
+      "grade",
+      "quantity"
+    ],
+    "COMMITMENT_OFFERED": [
+      "demand_id",
+      "lot_id",
+      "quantity",
+      "rule_version"
+    ],
+    "COMMITMENT_CONFIRMED": [
+      "demand_id",
+      "lot_id",
+      "quantity"
+    ],
+    "COMMITMENT_REPLANNED": [
+      "cause",
+      "released_quantity"
+    ],
+    "COMMITMENT_REASSIGNED": [
+      "to_lot_id",
+      "quantity",
+      "reason"
+    ],
+    "DELIVERY_ACCEPTED": [
+      "commitment_id",
+      "delivery_ref",
+      "version",
+      "quantity"
+    ],
+    "RECEIPT_ACCEPTED": [
+      "business_key",
+      "supplier_id"
+    ],
+    "DISPUTE_RAISED": [
+      "business_key",
+      "kind"
+    ],
+    "PRIORITY_RULES_FROZEN": [
+      "version",
+      "rules"
+    ],
     "SETTLEMENT_POSTED": [
       "period_id",
       "amount"
+    ],
+    "SETTLEMENT_REVERSED": [
+      "period_id",
+      "amount",
+      "reverses"
     ]
   },
   "additionalProperties": false
