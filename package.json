@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "build": "node --check src/contracts.js && node --check src/cli.js",
+    "build": "node --check src/contracts.js && node --check src/cli.js && node --check src/api.js && node --check src/domain/quantities.js && node --check src/domain/store.js && node --check src/domain/settlement.js && node --check src/domain/projection.js && node --check src/domain/clearing.js",
     "check:sample": "node src/cli.js contracts/domain.schema.json data/sample.json"
   }
 }

@@ -20,19 +20,48 @@
       "type": "string",
       "enum": [
         "LOT_DECLARED",
+        "LOT_SCHEDULE_UPDATED",
+        "LOT_ARRIVED",
         "LOT_INSPECTED",
+        "LOT_QUARANTINED",
+        "LOT_RELEASED",
+        "LOT_LOSS_RECORDED",
+        "LOT_SHORTAGE_RECORDED",
+        "LOT_EXTERNAL_LOCKED",
+        "LOT_EXTERNAL_UNLOCKED",
+        "CAPACITY_DECLARED",
         "CAPACITY_RESERVED",
+        "CAPACITY_RELEASED",
+        "DEMAND_REGISTERED",
+        "PRIORITY_FROZEN",
+        "COMMITMENT_PROPOSED",
+        "COMMITMENT_ACKED",
+        "ALLOCATION_CONFIRMED",
+        "ALLOCATION_REARRANGED",
+        "ALLOCATION_REASSIGNED",
+        "ALLOCATION_RELEASED",
+        "ALLOCATION_SHORTFALL_CLOSED",
         "DELIVERY_ACCEPTED",
-        "SETTLEMENT_POSTED"
+        "SETTLEMENT_POSTED",
+        "SETTLEMENT_REVERSED",
+        "PERIOD_CLOSED",
+        "PAYMENT_ISSUED",
+        "DISPUTE_OPENED",
+        "DISPUTE_RESOLVED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
         "supply_lot",
+        "handling_capacity",
         "purchase_demand",
+        "allocation_round",
         "allocation_commitment",
-        "settlement_entry"
+        "settlement_entry",
+        "settlement_period",
+        "payment",
+        "dispute"
       ]
     },
     "aggregate_id": {
@@ -53,17 +82,180 @@
   },
   "payload_required_by_event": {
     "LOT_DECLARED": [
+      "supplier_id",
+      "category",
+      "grade",
+      "unit",
       "quantity",
-      "arrival_window"
+      "arrival_window",
+      "price_range"
+    ],
+    "LOT_SCHEDULE_UPDATED": [
+      "vessel_trip_id",
+      "arrival_window",
+      "reason"
+    ],
+    "LOT_ARRIVED": [
+      "quantity"
+    ],
+    "LOT_INSPECTED": [
+      "inspection_id",
+      "result"
+    ],
+    "LOT_QUARANTINED": [
+      "hold_id",
+      "quantity",
+      "reason"
+    ],
+    "LOT_RELEASED": [
+      "hold_id",
+      "quantity"
+    ],
+    "LOT_LOSS_RECORDED": [
+      "quantity",
+      "stage",
+      "reason"
+    ],
+    "LOT_SHORTAGE_RECORDED": [
+      "quantity",
+      "reason"
+    ],
+    "LOT_EXTERNAL_LOCKED": [
+      "quantity",
+      "market_ref"
+    ],
+    "LOT_EXTERNAL_UNLOCKED": [
+      "quantity",
+      "market_ref"
+    ],
+    "CAPACITY_DECLARED": [
+      "window_id",
+      "start",
+      "end",
+      "quantity"
     ],
     "CAPACITY_RESERVED": [
+      "lot_id",
       "demand_id",
+      "window_id",
       "quantity"
+    ],
+    "CAPACITY_RELEASED": [
+      "window_id",
+      "quantity"
+    ],
+    "DEMAND_REGISTERED": [
+      "business_no",
+      "category",
+      "grade",
+      "unit",
+      "quantity",
+      "window",
+      "max_price"
+    ],
+    "PRIORITY_FROZEN": [
+      "round_id",
+      "freeze_version",
+      "criteria",
+      "ranking"
+    ],
+    "COMMITMENT_PROPOSED": [
+      "business_no",
+      "lot_id",
+      "demand_id",
+      "quantity",
+      "price",
+      "arrival_window"
+    ],
+    "COMMITMENT_ACKED": [
+      "business_no",
+      "commitment_id",
+      "ack"
+    ],
+    "ALLOCATION_CONFIRMED": [
+      "commitment_id",
+      "quantity"
+    ],
+    "ALLOCATION_REARRANGED": [
+      "round_id",
+      "freeze_version",
+      "trigger",
+      "items"
+    ],
+    "ALLOCATION_REASSIGNED": [
+      "commitment_id",
+      "from_demand_id",
+      "to_demand_id",
+      "quantity",
+      "reason",
+      "operator_id"
+    ],
+    "ALLOCATION_RELEASED": [
+      "commitment_id",
+      "quantity",
+      "reason"
+    ],
+    "ALLOCATION_SHORTFALL_CLOSED": [
+      "commitment_id",
+      "quantity",
+      "reason"
+    ],
+    "DELIVERY_ACCEPTED": [
+      "delivery_id",
+      "commitment_id",
+      "lot_id",
+      "quantity",
+      "accepted_at"
     ],
     "SETTLEMENT_POSTED": [
       "period_id",
+      "delivery_id",
+      "commitment_id",
+      "freeze_version",
+      "lines",
       "amount"
+    ],
+    "SETTLEMENT_REVERSED": [
+      "period_id",
+      "original_entry_id",
+      "delivery_id",
+      "amount",
+      "reason"
+    ],
+    "PERIOD_CLOSED": [
+      "period_id"
+    ],
+    "PAYMENT_ISSUED": [
+      "payment_id",
+      "settlement_entry_ids",
+      "amount",
+      "provenance"
+    ],
+    "DISPUTE_OPENED": [
+      "business_no",
+      "kind",
+      "reason"
+    ],
+    "DISPUTE_RESOLVED": [
+      "dispute_id",
+      "resolution"
     ]
+  },
+  "payload_enums_by_event": {
+    "LOT_INSPECTED": {
+      "result": [
+        "passed",
+        "quarantined",
+        "rejected"
+      ]
+    },
+    "DISPUTE_OPENED": {
+      "kind": [
+        "IDEMPOTENCY_CONTENT_MISMATCH",
+        "MANUAL_INTERVENTION",
+        "QUANTITY_MISMATCH"
+      ]
+    }
   },
   "additionalProperties": false
 }
